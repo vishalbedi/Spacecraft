@@ -1,7 +1,3 @@
-//
-// Created by vishal on 2/10/17.
-//
-
 #include "NASA.h"
 
 using ritcs::NASA;
@@ -13,8 +9,8 @@ using ritcs::NASA;
  *
  * @author Sean Strout @ RITCS
  */
-int main() {
-    NASA nasa;
-    //nasa.main_loop();
-    return 0;
-}
+//int main() {
+//    NASA nasa;
+//    nasa.main_loop();
+//    return 0;
+//}

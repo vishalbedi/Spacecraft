@@ -30,7 +30,7 @@ int main() {
     Spacecraft s1("Swordfish II");
 
     // operator<<
-    //cout << s1 << endl;
+    cout << s1 << endl;
 
     // copy constructor
     Spacecraft s2 = s1;
@@ -52,6 +52,7 @@ int main() {
 
     // fly
     s2.fly(120);
+
 }
 
 #if 0

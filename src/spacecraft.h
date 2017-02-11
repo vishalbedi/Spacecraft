@@ -30,7 +30,8 @@ namespace ritcs {
         /**
          * One light year is 9.4607×10^15 meters
          */
-        static const double LIGHT_YEAR = 9.4607e15;
+        static const double LIGHT_YEAR;
+
 
         /**
          * Create a new Spacecraft
@@ -97,15 +98,45 @@ namespace ritcs {
          */
         double fly(int time);
 
+    public:
         /**
-         * Output the ship in the format:
-         *
-         * Spacecraft({id}){name={name}, warp={speed}, velocity={velocity}, distance={distance}}
-         * @param os
-         * @param s
-         * @return the ostream (for chaining)
+        * Output the ship in the format:
+        *
+        * Spacecraft({id}){name={name}, warp={speed}, velocity={velocity}, distance={distance}}
+        * @param os
+        * @param s
+        * @return the ostream (for chaining)
+        */
+        friend std::ostream &operator<<(std::ostream &os, const Spacecraft &s);
+
+
+    private:
+        /**
+         * Unique Id of the current spacecraft
          */
-        std::ostream &operator<<(std::ostream &os, const Spacecraft &s);
+        unsigned int id_;
+        /**
+         * Name of the spacecraft
+         */
+        std::string name_;
+        /**
+         * current  warp factor, cannot be more than MAX_WARP_SPEED
+         */
+        unsigned int warp_;
+        /**
+         * current velocity of the ship calculated by as
+         *  given the speed of light, C (m/s), and the warp speed, W, is:
+         *  V = C * W^3
+         */
+        long velocity_;
+        /**
+         * total distance travelled by the spacecraft in light years
+         */
+        double distance_;
+
+        /** id of the next spacecraft to be created */
+        static unsigned int next_id;
+
     };
 }
 
