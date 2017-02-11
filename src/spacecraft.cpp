@@ -3,7 +3,7 @@
 //
 
 #include "spacecraft.h"
-#include <math.h>
+#include <cmath>
 
 using std::cout;
 using std::endl;
