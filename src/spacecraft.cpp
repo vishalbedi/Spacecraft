@@ -48,7 +48,7 @@ int Spacecraft::get_id() const {
 
 
 unsigned int Spacecraft::get_speed() const {
-    return velocity_;
+    return warp_;
 }
 
 double Spacecraft::get_light_years_travelled() const {
@@ -60,7 +60,7 @@ void Spacecraft::punch_it_chewy(unsigned int warp_speed) {
 }
 
 double Spacecraft::fly(int time) {
-    velocity_ = Spacecraft::SPEED_OF_LIGHT * std::pow(warp_, 3.0);
+    velocity_ = Spacecraft::SPEED_OF_LIGHT * (long) std::pow(warp_, 3.0);
     double distance_travelled_m = velocity_ * time;
     double distance_travelled_light_years = distance_travelled_m / Spacecraft::LIGHT_YEAR;
     distance_ += distance_travelled_light_years;
@@ -68,8 +68,6 @@ double Spacecraft::fly(int time) {
 }
 
 namespace ritcs {
-
-
     std::ostream &operator<<(std::ostream &os, const Spacecraft &s) {
         return os << "Spacecraft(" << s.id_ << "){" <<
                   "name=" << s.name_ <<

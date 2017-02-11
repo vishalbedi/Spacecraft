@@ -5,6 +5,13 @@
 #ifndef SPACECRAFT_NASA_H
 #define SPACECRAFT_NASA_H
 
+#include <string>
+#include <list>
+#include "spacecraft.h"
+
+using ritcs::Spacecraft;
+using std::list;
+
 namespace ritcs {
 
     /**
@@ -33,6 +40,36 @@ namespace ritcs {
          * ends the standard input.
          */
         void main_loop();
+
+    private:
+        /**
+         * List of all the valid commands
+         */
+        static const std::string CMD_COPY_;
+        static const std::string CMD_CREATE_;
+        static const std::string CMD_DESTROY_;
+        static const std::string CMD_DISTANCE_;
+        static const std::string CMD_FLY_;
+        static const std::string CMD_LIST_;
+        static const std::string CMD_PRINT_;
+        static const std::string CMD_QUIT_;
+        static const std::string CMD_WARP_;
+
+        unsigned int active_spacecrafts_;
+        /**
+         * deck to store spacecrafts
+         * cant have size more than MAX_FLEET_SIZE
+         */
+        list<ritcs::Spacecraft *> fleet;
+
+        /**
+         * Get the spacecraft from the fleet based on id
+         * @param id of the spacecraft to find
+         * @return spacecraft
+         */
+        Spacecraft *find(const unsigned int id);
+
+        double total_distance_by_fleet;
     };
 }
 
