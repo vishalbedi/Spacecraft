@@ -2,7 +2,7 @@
 // Created by vishal on 2/10/17.
 //
 
-#include "NASA.h"
+#include "nasa.h"
 
 using std::cout;
 using std::cin;
