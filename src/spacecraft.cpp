@@ -52,7 +52,7 @@ unsigned int Spacecraft::get_speed() const {
 }
 
 double Spacecraft::get_light_years_travelled() const {
-    return distance_;
+    return distance_ / Spacecraft::LIGHT_YEAR;
 }
 
 void Spacecraft::punch_it_chewy(unsigned int warp_speed) {
@@ -61,10 +61,8 @@ void Spacecraft::punch_it_chewy(unsigned int warp_speed) {
 
 double Spacecraft::fly(int time) {
     velocity_ = Spacecraft::SPEED_OF_LIGHT * (long) std::pow(warp_, 3.0);
-    double distance_travelled_m = velocity_ * time;
-    double distance_travelled_light_years = distance_travelled_m / Spacecraft::LIGHT_YEAR;
-    distance_ += distance_travelled_light_years;
-    return distance_travelled_light_years;
+    distance_ += velocity_ * time;
+    return get_light_years_travelled();
 }
 
 namespace ritcs {

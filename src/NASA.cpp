@@ -47,18 +47,21 @@ void NASA::main_loop() {
             if (ship != NULL) {
                 delete ship;
                 fleet.remove(ship);
+                active_spacecrafts_--;
             }
         } else if (cmd.compare(NASA::CMD_COPY_) == 0) {
             unsigned int id;
             cin >> id;
-            Spacecraft *ship = find(id);
-            if (ship != NULL) {
-                if (active_spacecrafts_ < MAX_SHIPS)
+            if (active_spacecrafts_ < MAX_SHIPS) {
+                Spacecraft *ship = find(id);
+                if (ship != NULL) {
                     fleet.push_back(new Spacecraft(*ship));
+                    active_spacecrafts_++;
+                }
                 else
-                    cout << "Can't create any more ships!" << endl;
+                    cout << "Ship " << id << " not found!" << endl;
             } else {
-                cout << "Ship " << id << " not found!" << endl;
+                cout << "Can't create any more ships!" << endl;
             }
         } else if (cmd.compare(NASA::CMD_FLY_) == 0) {
             unsigned int id, time;
@@ -69,7 +72,8 @@ void NASA::main_loop() {
                 total_distance_by_fleet += distance_travelled_now;
                 cout << ship->get_name() << " flies " << time << " seconds for " << distance_travelled_now
                      << " light years" << endl;
-            }
+            } else
+                cout << "Ship " << id << " not found!" << endl;
         } else if (cmd.compare(NASA::CMD_LIST_) == 0) {
             list<Spacecraft *>::iterator iter;
             for (iter = fleet.begin();
@@ -83,7 +87,8 @@ void NASA::main_loop() {
             Spacecraft *ship = find(id);
             if (ship != NULL) {
                 cout << *ship << endl;
-            }
+            } else
+                cout << "Ship " << id << " not found!" << endl;
         } else if (cmd.compare(NASA::CMD_DISTANCE_) == 0) {
             unsigned int id;
             cin >> id;
@@ -92,6 +97,8 @@ void NASA::main_loop() {
                 ship->get_light_years_travelled();
                 cout << ship->get_name() << " has flown  " << ship->get_light_years_travelled() << " light years"
                      << endl;
+            } else {
+                cout << "Ship " << id << " not found!" << endl;
             }
         } else if (cmd.compare(NASA::CMD_WARP_) == 0) {
             unsigned int id, warp;
@@ -100,6 +107,8 @@ void NASA::main_loop() {
             if (ship != NULL) {
                 ship->punch_it_chewy(warp);
                 cout << ship->get_name() << " set to warp speed " << ship->get_speed() << endl;
+            } else {
+                cout << "Ship " << id << " not found!" << endl;
             }
         } else if (cmd.compare(NASA::CMD_QUIT_) == 0) {
             cout << "All ships have flown a total of " << total_distance_by_fleet << " light years" << endl;
@@ -109,7 +118,10 @@ void NASA::main_loop() {
                  ++iter) {
                 delete *iter;
             }
+            active_spacecrafts_ = 0;
             quit = true;
+        } else {
+            cout << "Unrecognized command: " + cmd << endl;
         }
     }
 }
